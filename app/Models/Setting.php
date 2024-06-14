@@ -10,14 +10,14 @@
  */
 namespace App\Models;
 
-use App\BigChainDB\BigChainModel;
+use Illuminate\Database\Eloquent\Model;
 
-class Setting extends BigChainModel
+class Setting extends Model
 {
     /*
      * Table Name Specified
      */
-    protected static $table = 'settings';
+    protected $table = 'settings';
 
     //declare settings key
     const SITE_NAME = "site_name",
