@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
-    use \Softnio\LaravelInstaller\Helpers\MigrationsHelper;
+    // use \Softnio\LaravelInstaller\Helpers\MigrationsHelper;
     /**
      * Handle an incoming request.
      *
@@ -33,13 +33,14 @@ class RedirectIfAuthenticated
                     return redirect(route('login'))->with(['danger'=>'You are not a user']);
                 }
             }
-        }else{
-            $migrations = $this->getMigrations();
-            $dbMigrations = $this->getExecutedMigrations();
-            $need_update = count($migrations) - count($dbMigrations);
+        } 
+        // else{
+        //     $migrations = $this->getMigrations();
+        //     $dbMigrations = $this->getExecutedMigrations();
+        //     $need_update = count($migrations) - count($dbMigrations);
 
-            return response()->view('errors.db_error', compact('check_dt', 'need_update'));
-        }
+        //     return response()->view('errors.db_error', compact('check_dt', 'need_update'));
+        // }
 
 
         return $next($request);

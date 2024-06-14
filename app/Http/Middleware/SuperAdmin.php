@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Schema;
 
 class SuperAdmin
 {
@@ -16,7 +15,7 @@ class SuperAdmin
      */
     public function handle($request, Closure $next)
     {
-        if( file_exists(storage_path('installed')) && Schema::hasTable('settings') ){
+        if( file_exists(storage_path('installed'))){
             if(!super_access()){
                 if($request->ajax()){
                     $result['msg'] = 'warning';

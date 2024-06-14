@@ -35,14 +35,14 @@ if (!function_exists('application_installed')) {
     function application_installed($full_check = false)
     {
         if(file_exists(storage_path('installed'))){
-            if($full_check === true){
-                try {
-                    \DB::connection()->getPdo();
-                    return  true;
-                } catch (\Exception $e) {
-                    return false;
-                }
-            }
+            // if($full_check === true){
+            //     try {
+            //         //\DB::connection()->getPdo();
+            //         return  true;
+            //     } catch (\Exception $e) {
+            //         return false;
+            //     }
+            // }
             return true;
         }
         return false;
@@ -2111,12 +2111,12 @@ if (!function_exists('css_js_ver')) {
 if (!function_exists('is_maintenance')) {
     function is_maintenance()
     {
-        if (\Illuminate\Support\Facades\Schema::hasTable('settings')) {
+        //if (\Illuminate\Support\Facades\Schema::hasTable('settings')) {
             if (get_setting('site_maintenance') == 1) {
                 return true;
             }
             return false;
-        }
+        //}
 
         return false;
     }
@@ -2178,7 +2178,7 @@ if (!function_exists('explode_user_for_demo')) {
 /* @function get_lang()  @version v1.0.1  @since 1.1.3 */
 if (!function_exists('get_lang')) {
     function get_lang($get=null) {
-        if( application_installed(true) && Schema::hasTable('languages') ){
+        if( application_installed(true)){
             $actived_lang = Language::where('status', 1)->get();//get(['name', 'label', 'short', 'code']);
             $languages = [];
             if($actived_lang) {

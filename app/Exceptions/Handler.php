@@ -9,7 +9,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
-    use \Softnio\LaravelInstaller\Helpers\MigrationsHelper;
+    //use \Softnio\LaravelInstaller\Helpers\MigrationsHelper;
     /**
      * A list of the exception types that are not reported.
      *
@@ -62,47 +62,47 @@ class Handler extends ExceptionHandler
             return response()->json($json, $exception->getCode(), [], JSON_PRETTY_PRINT);
         }
 
-        $migrations = $this->getMigrations();
-        $dbMigrations = $this->getExecutedMigrations();
-        $need_update = count($migrations) - count($dbMigrations);
+        // $migrations = $this->getMigrations();
+        // $dbMigrations = $this->getExecutedMigrations();
+        // $need_update = count($migrations) - count($dbMigrations);
         
-        if($request->ajax() || $request->wantsJson()){
-            $response = [
-                'msg' => 'error', 
-                'message' => 'Something is wrong!',
-                'errors' => $exception->getMessage()
-            ];
-            return response()->json($response, 200, [], JSON_PRETTY_PRINT);
-        }
-        if($exception instanceof QueryException)
-        {
-            if($need_update > 0){
-                return response()->view('errors.db_error', compact('check_dt', 'need_update'));
-            }
+        // if($request->ajax() || $request->wantsJson()){
+        //     $response = [
+        //         'msg' => 'error', 
+        //         'message' => 'Something is wrong!',
+        //         'errors' => $exception->getMessage()
+        //     ];
+        //     return response()->json($response, 200, [], JSON_PRETTY_PRINT);
+        // }
+        // if($exception instanceof QueryException)
+        // {
+        //     if($need_update > 0){
+        //         return response()->view('errors.db_error', compact('check_dt', 'need_update'));
+        //     }
 
-            $check_dt = \IcoHandler::checkDB();
-            if(empty($check_dt)){
-                $heading = 'Something is wrong in Database!';
-                $message = 'Please re-check your database connection, tables and columns etc.';
-                return response()->view('errors.custom', ['heading'=>$heading, 'message'=>$message, 'need_update' => $need_update]);
-            }
-            else{
-                $migrations = $this->getMigrations();
-                $dbMigrations = $this->getExecutedMigrations();
-                $need_update = count($migrations) - count($dbMigrations);
-                return response()->view('errors.db_error', compact('check_dt', 'need_update'));
-            }
+        //     $check_dt = \IcoHandler::checkDB();
+        //     if(empty($check_dt)){
+        //         $heading = 'Something is wrong in Database!';
+        //         $message = 'Please re-check your database connection, tables and columns etc.';
+        //         return response()->view('errors.custom', ['heading'=>$heading, 'message'=>$message, 'need_update' => $need_update]);
+        //     }
+        //     else{
+        //         $migrations = $this->getMigrations();
+        //         $dbMigrations = $this->getExecutedMigrations();
+        //         $need_update = count($migrations) - count($dbMigrations);
+        //         return response()->view('errors.db_error', compact('check_dt', 'need_update'));
+        //     }
             
-        }
-        if($exception instanceof \PDOException)
-        {
-            if($need_update > 0){
-                return response()->view('errors.db_error', compact('check_dt', 'need_update'));
-            }
-            $heading = 'Unable to Connect Database!';
-            $message = 'Please re-check your database name, username and password.';
-            return response()->view('errors.custom', ['heading'=>$heading, 'message'=>$message]);
-        }
+        // }
+        // if($exception instanceof \PDOException)
+        // {
+        //     if($need_update > 0){
+        //         return response()->view('errors.db_error', compact('check_dt', 'need_update'));
+        //     }
+        //     $heading = 'Unable to Connect Database!';
+        //     $message = 'Please re-check your database name, username and password.';
+        //     return response()->view('errors.custom', ['heading'=>$heading, 'message'=>$message]);
+        // }
         return parent::render($request, $exception);
     }
 }

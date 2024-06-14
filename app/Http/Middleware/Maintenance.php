@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Helpers\IcoHandler;
-use Illuminate\Support\Facades\Schema;
 
 class Maintenance
 {

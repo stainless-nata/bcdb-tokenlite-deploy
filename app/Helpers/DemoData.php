@@ -12,8 +12,6 @@ use App\PayModule\Module;
 use App\Models\EmailTemplate;
 use App\Models\PaymentMethod;
 use App\Helpers\BaseTranslate;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Schema;
 
 class DemoData extends IcoHandler
 {
@@ -24,7 +22,7 @@ class DemoData extends IcoHandler
      */
     public function __construct()
     {
-        $this->init(); 
+        //$this->init(); 
     }
 
     /**
@@ -33,47 +31,47 @@ class DemoData extends IcoHandler
     public function init()
     {  
         $check_dt = \IcoHandler::checkDB();
-        if(empty($check_dt)){       
+        // if(empty($check_dt)){       
        
-            if (file_exists(storage_path('installed')) && !request()->is('install/*') && Schema::hasTable('settings')) {
-                $site_db = (float) get_setting('site_db_version', 1001); $lang_db = (float) get_setting('lang_db_version', 1001);
+        //     if (file_exists(storage_path('installed')) && !request()->is('install/*') && Schema::hasTable('settings')) {
+        //         $site_db = (float) get_setting('site_db_version', 1001); $lang_db = (float) get_setting('lang_db_version', 1001);
 
-                //Insert Data
-                if(self::db_version > $site_db) {
-                    $this->add_settings();
-                    $this->add_kyc_settings();
-                    $this->add_purchase_settings();
-                    $this->add_payment_module();
-                    $this->apiSecret();
-                    $module = new Module();
-                    $module->init();
-                    $this->add_stage_data();
-                    $this->add_pages();
-                    $this->add_email_templates();
-                    add_setting('site_db_version', self::db_version);
-                } else {
-                    $this->apiSecret();
-                }
+        //         //Insert Data
+        //         if(self::db_version > $site_db) {
+        //             $this->add_settings();
+        //             $this->add_kyc_settings();
+        //             $this->add_purchase_settings();
+        //             $this->add_payment_module();
+        //             $this->apiSecret();
+        //             $module = new Module();
+        //             $module->init();
+        //             $this->add_stage_data();
+        //             $this->add_pages();
+        //             $this->add_email_templates();
+        //             add_setting('site_db_version', self::db_version);
+        //         } else {
+        //             $this->apiSecret();
+        //         }
 
-                // Insert Base Translation
-                if(BaseTranslate::db_version > $lang_db) {
-                    BaseTranslate::import_translate(true);
-                    Language::firstOrCreate([
-                        'name' => 'English', 
-                        'label' => 'English', 
-                        'short' => 'EN', 
-                        'code' => 'en',
-                    ]);
-                    if (get_setting('lang_last_update_en', null) == null) {
-                        add_setting('lang_last_update_en', time());
-                    }
-                    if (get_setting('lang_last_generate_en', null) == null) {
-                        add_setting('lang_last_generate_en', time());
-                    }
-                    add_setting('lang_db_version', BaseTranslate::db_version);
-                }
-            }
-        }
+        //         // Insert Base Translation
+        //         if(BaseTranslate::db_version > $lang_db) {
+        //             BaseTranslate::import_translate(true);
+        //             Language::firstOrCreate([
+        //                 'name' => 'English', 
+        //                 'label' => 'English', 
+        //                 'short' => 'EN', 
+        //                 'code' => 'en',
+        //             ]);
+        //             if (get_setting('lang_last_update_en', null) == null) {
+        //                 add_setting('lang_last_update_en', time());
+        //             }
+        //             if (get_setting('lang_last_generate_en', null) == null) {
+        //                 add_setting('lang_last_generate_en', time());
+        //             }
+        //             add_setting('lang_db_version', BaseTranslate::db_version);
+        //         }
+        //     }
+        // }
     }
 
     /**

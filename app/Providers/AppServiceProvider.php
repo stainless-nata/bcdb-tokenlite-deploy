@@ -6,9 +6,7 @@ use Config;
 use Cookie;
 use IcoData;
 use App\Models\Setting;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
         
-        Schema::defaultStringLength(191);
+        //Schema::defaultStringLength(191);
 
         if ( application_installed(true)) {
 

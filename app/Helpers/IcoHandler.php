@@ -14,7 +14,6 @@ namespace App\Helpers;
 use Closure;
 use GuzzleHttp\Client;
 use App\Helpers\AddressValidation;
-use Illuminate\Support\Facades\Schema;
 
 class IcoHandler
 {
@@ -441,15 +440,16 @@ class IcoHandler
     {
         if( ! application_installed(true)) return [];
         $tables = ['activities', 'email_templates', 'global_metas', 'ico_metas', 'ico_stages', 'kycs', 'migrations', 'pages', 'password_resets', 'payment_methods', 'settings', 'transactions', 'users', 'user_metas', 'referrals', 'languages', 'translates'];
-        $result = NULL;
-        $return = NULL;
-        foreach ($tables as $table) {
-            $check = Schema::hasTable($table);
-            $result[$table] = $check;
-        }
+        return $tables;
+        // $result = NULL;
+        // $return = NULL;
+        // foreach ($tables as $table) {
+        //     $check = Schema::hasTable($table);
+        //     $result[$table] = $check;
+        // }
 
-        $return = array_keys($result, false);
-        return $return;
+        // $return = array_keys($result, false);
+        // return $return;
 
     }
 }

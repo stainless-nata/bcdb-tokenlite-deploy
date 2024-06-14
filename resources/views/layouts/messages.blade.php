@@ -6,7 +6,7 @@
 </ul>
 @endif
 
-@if (! Schema::hasTable('users') && !file_exists(storage_path('installed')))
+@if (!file_exists(storage_path('installed')))
 <div class="alert alert-dismissible fade show alert-info" role="alert">
     <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">&nbsp;</a>
     It's looks like, you are not install the application yet, please <a href="{{ url('/install') }}">install</a> it first.

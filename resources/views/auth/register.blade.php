@@ -61,7 +61,7 @@ $check_users = \App\Models\User::count();
         <button type="submit" class="btn btn-primary btn-block">{{ ( application_installed(true) && ($check_users == 0) ) ? __('Complete Installation') : __('Create Account') }}</button>
     </form>
 
-    @if(application_installed(true) && ($check_users > 0) && Schema::hasTable('settings'))
+    @if(application_installed(true) && ($check_users > 0))
         @if (
         (get_setting('site_api_fb_id', env('FB_CLIENT_ID', '')) != '' && get_setting('site_api_fb_secret', env('FB_CLIENT_SECRET', '')) != '') ||
         (get_setting('site_api_google_id', env('GOOGLE_CLIENT_ID', '')) != '' && get_setting('site_api_google_secret', env('GOOGLE_CLIENT_SECRET', '')) != '')

@@ -45,7 +45,7 @@
         <button type="submit" class="btn btn-primary btn-block">{{__('Sign In')}}</button>
     </form>
     @if(! is_maintenance())
-    @if(Schema::hasTable('settings'))
+    @if(true)
     @if (
     (get_setting('site_api_fb_id', env('FB_CLIENT_ID', '')) != '' && get_setting('site_api_fb_secret',
     env('FB_CLIENT_SECRET', '')) != '') ||
